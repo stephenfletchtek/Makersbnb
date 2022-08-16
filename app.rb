@@ -1,8 +1,10 @@
 # frozen_string_literal: true
-
+require './lib/database_connection'
 require 'sinatra/base'
 require 'sinatra/reloader'
 require './lib/listings_repository'
+
+DatabaseConnection.connect('makersbnb_test')
 
 class Application < Sinatra::Base
   configure :development do
@@ -10,9 +12,8 @@ class Application < Sinatra::Base
   end
 
   get '/' do
-    repo = ListingRepository.new
+    repo = ListingsRepository.new
     @all = repo.all
-    
     return erb(:index)
   end
 
@@ -32,6 +33,12 @@ class Application < Sinatra::Base
     repo = ListingsRepository.new
     repo.create(listing)
     redirect('/')
+  end
+
+  get '/listing/:id' do
+    repo = ListingsRepository.new
+    @listing = repo.find_by_id(params[:id])
+    return erb(:listing_id)
   end
 
   private
