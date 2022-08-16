@@ -11,10 +11,17 @@ Response:
           - price_per_night
           - availability
 
+Request: 
+    POST "/add"
+Response: 
+    status: (200)
+    body: ""
+    redirect: to get "/"
+
 ## 2. Design the Response
 
 ```html
-<!-- EXAMPLE -->
+<!-- GET "/add" -->
 <!-- Response when the post is found: 200 OK -->
 
 <html>
@@ -34,6 +41,10 @@ Response:
       </form>
   </body>
 </html>
+
+<!-- POST "/add" -->
+
+redirect to GET "/"
 ```
 ## 3. Write Examples
 ```
@@ -46,6 +57,14 @@ Response:
           - description 
           - price_per_night
           - availability
+
+
+Request: 
+    POST "/add"
+Response: 
+    status: (200)
+    body: ""
+    redirect: to get "/"
 ```
 
 
@@ -64,7 +83,6 @@ describe Application do
 
   context "GET /add" do
     it 'returns 200 OK' do
-      # Assuming the post with id 1 exists.
       response = get('/posts?id=1')
 
       expect(response.status).to eq(200)
@@ -74,6 +92,26 @@ describe Application do
     end
 
   end
+  
+  context "POST /add" do
+    it 'returns 200 OK if a completed form is submitted' do
+      response = post('/add', name: "test_name", description: "test_description", price_per_night: "test_price", availability: "test_date")
+      expect(response.status).to eq(200)
+      expect(response.body).to eq('')
+      confirm = get('/')
+      expect(confirm.status).to eq(200)
+      expect(confirm.body).to include('test_name')
+      expect(confirm.body).to include('test_description')
+    end
+
+    it "doesn't add if form is incomplete" do
+      response = post('/add', name: "test_name", description: "test_description", price_per_night: "", availability: "")
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<p>You must enter a price per night</p>')
+      expect(response.body).to include('<p>You must enter a availability</p>')
+    end
+  end
+  
 end
 ```
 
