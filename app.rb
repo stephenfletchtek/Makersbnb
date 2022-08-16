@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require './lib/database_connection'
 require 'sinatra/base'
 require 'sinatra/reloader'
@@ -6,6 +7,7 @@ require './lib/listings_repository'
 
 DatabaseConnection.connect('makersbnb_test')
 
+# MakersBnb web app
 class Application < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
