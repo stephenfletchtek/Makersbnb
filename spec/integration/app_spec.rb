@@ -23,6 +23,9 @@ describe Application do
       response = get('/')
 
       expect(response.status).to eq(200)
+      expect(response.body). to include("Fawlty Towers")
+      expect(response.body). to include("Buckingham Palace")
+      expect(response.body). to include("Mayfair Place")
     end
   end
 end
