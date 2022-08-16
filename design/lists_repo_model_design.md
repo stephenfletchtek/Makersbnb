@@ -41,7 +41,7 @@ end
 
 # Repository class
 # (in lib/listing_repository.rb)
-class ListingRepository
+class ListingsRepository
 end
 ```
 
@@ -54,7 +54,7 @@ Define the attributes of your Model class. You can usually map the table columns
 # Table name: listings
 
 
-TO BE PUT INSIDE ListingRepository
+TO BE PUT INSIDE ListingsRepository
 class Listing
 
   # Replace the attributes by your own columns.
@@ -78,7 +78,7 @@ Using comments, define the method signatures (arguments and return value) and wh
 # Repository class
 # (in lib/listing_repository.rb)
 
-class ListingRepository
+class ListingsRepository
 
   # Selecting all records
   # No arguments
@@ -130,7 +130,7 @@ These examples will later be encoded as RSpec tests.
 # 1
 # Get all students
 
-repo = listingRepository.new
+repo = ListingsRepository.new
 
 listings = repo.all
 
@@ -147,7 +147,7 @@ listings[1].cohort_name # =>  'May 2022'
 # 2
 # Get a single listing
 
-repo = listingRepository.new
+repo = ListingsRepository.new
 
 listing = repo.find(1)
 
@@ -177,7 +177,7 @@ def reset_listings_table
   connection.exec(seed_sql)
 end
 
-describe listingRepository do
+describe ListingsRepository do
   before(:each) do 
     reset_listings_table
   end
