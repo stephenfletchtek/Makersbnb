@@ -10,6 +10,9 @@ class Application < Sinatra::Base
   end
 
   get '/' do
+    repo = ListingRepository.new
+    @all = repo.all
+    
     return erb(:index)
   end
 

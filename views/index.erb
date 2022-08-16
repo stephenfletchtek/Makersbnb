@@ -31,7 +31,18 @@
     <!-- Add listing button -->
 
     <!-- display all listings (carousel) -->
-     
+
+
+       <% @all.map do |listing_hash| %>
+          <ul>
+            <li><%= listing_hash[:name] %></li>
+            <li>£<%= listing_hash[:price_per_night] %> per night</li>
+            <li><%= listing_hash[:availability] %></li>
+          </ul>  
+          
+            
+        <% end %>
+
           
 
     </body>
