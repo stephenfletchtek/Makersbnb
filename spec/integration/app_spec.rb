@@ -19,15 +19,25 @@ RSpec.describe Application do
   # We need to declare the `app` value by instantiating the Application
   # class so our tests work.
   let(:app) { Application.new }
-
-  context "GET /add" do
+  context "GET /" do
      it 'returns 200 OK and return correct html' do
-      response = get('/add')
+      response = get('/')
 
       expect(response.status).to eq(200)
       expect(response.body).to include('<input type="submit" value="Add Listing"/>')
       expect(response.body).to include('<form action="/add" method="POST">')
       expect(response.body).to include('<input type="text" name="price_per_night">')
+    end
+  end
+  
+  context "GET /add" do
+     it 'returns 200 OK and return correct html' do
+      response = get('/add')
+
+      expect(response.status).to eq(200)
+      expect(response.body). to include("Fawlty Towers")
+      expect(response.body). to include("Buckingham Palace")
+      expect(response.body). to include("Mayfair Place")
     end
   end
   context "POST /add" do
@@ -45,6 +55,7 @@ RSpec.describe Application do
       response = post('/add', name: "test_name", description: "test_description", price_per_night: "", availability: "")
       expect(response.status).to eq(200)
       expect(response.body).to include('<p>Listing form invalid!</p>')
+
     end
   end
 end

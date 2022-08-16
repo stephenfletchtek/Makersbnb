@@ -10,8 +10,8 @@ class Application < Sinatra::Base
     return erb(:add_form)
   end
 
+  
   post '/add' do
-    p params['name']
     listing = { 
     name: params['name'], 
     description: params['description'],
@@ -30,5 +30,4 @@ class Application < Sinatra::Base
     return false if listing.values.any? { |v| v.nil? || v.empty? || v != v.strip }
     true
   end
-  
 end
