@@ -39,8 +39,14 @@ class Application < Sinatra::Base
 
   get '/listing/:id' do
     repo = ListingsRepository.new
-    @listing = repo.find_by_id(params[:id])
-    return erb(:listing_id)
+
+    begin
+      @listing = repo.find_by_id(params[:id])
+      return erb(:listing_id)
+    rescue => e
+      @error = e
+      erb(:listing_id_error)
+    end
   end
 
   private
