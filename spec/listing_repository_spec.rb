@@ -1,4 +1,6 @@
-require 'listing_repository'
+# frozen_string_literal: true
+
+require 'listings_repository'
 
 def reset_listings_table
   seed_sql = File.read('spec/schemas+seeds/seeds_listings.sql')
@@ -6,54 +8,54 @@ def reset_listings_table
   connection.exec(seed_sql)
 end
 
-describe ListingRepository do
-  before(:each) do 
+describe ListingsRepository do
+  before(:each) do
     reset_listings_table
   end
 
   it 'finds all listings' do
-    repo = ListingRepository.new
+    repo = ListingsRepository.new
 
     listings = repo.all
-    
+
     expect(listings.length).to eq(3)
-    expect(listings.first.name).to eq('Buckingham Palace')
-    expect(listings.first.price_per_night).to eq("35")
+    expect(listings.first[:name]).to eq('Buckingham Palace')
+    expect(listings.first[:price_per_night]).to eq('35')
   end
 
-#   it 'finds one listing' do
-#     repo = ListingRepository.new
+  #   it 'finds one listing' do
+  #     repo = ListingsRepository.new
 
-#     listing = repo.find(3)
-    
-#     expect(listing.id).to eq(3)
-#     expect(listing.title).to eq('Waterloo')
-#     expect(listing.artist_id).to eq(2)
-#   end
+  #     listing = repo.find(3)
 
-#   it 'creates an listing' do
-#     repo = ListingRepository.new
+  #     expect(listing['id']).to eq(3)
+  #     expect(listing.title).to eq('Waterloo')
+  #     expect(listing.artist_id).to eq(2)
+  #   end
 
-#     new_listing = listing.new
-#     new_listing.title = 'Pablo Honey'
-#     new_listing.release_year = 1993
-#     new_listing.artist_id = 1
-#     repo.create(new_listing)
+  #   it 'creates an listing' do
+  #     repo = ListingsRepository.new
 
-#     listings = repo.all
+  #     new_listing = listing.new
+  #     new_listing.title = 'Pablo Honey'
+  #     new_listing.release_year = 1993
+  #     new_listing.artist_id = 1
+  #     repo.create(new_listing)
 
-#     expect(listings.length).to eq(13)
-#     expect(listings.last.title).to eq('Pablo Honey')
-#     expect(listings.last.artist_id).to eq(1)
-#   end
+  #     listings = repo.all
 
-#   it 'deletes an listing' do
-#     repo = ListingRepository.new
+  #     expect(listings.length).to eq(13)
+  #     expect(listings.last.title).to eq('Pablo Honey')
+  #     expect(listings.last.artist_id).to eq(1)
+  #   end
 
-#     repo.delete(1)
-#     listings = repo.all
+  #   it 'deletes an listing' do
+  #     repo = ListingsRepository.new
 
-#     expect(listings.length).to eq(11)
-#     expect(listings.first.id).to eq(2)
-#   end
+  #     repo.delete(1)
+  #     listings = repo.all
+
+  #     expect(listings.length).to eq(11)
+  #     expect(listings.first.id).to eq(2)
+  #   end
 end
