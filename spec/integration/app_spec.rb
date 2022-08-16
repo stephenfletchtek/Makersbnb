@@ -12,14 +12,13 @@ def reset_listings_table
 end
 
 RSpec.describe Application do
+
   before(:each) do
     reset_listings_table
   end
-  # This is so we can use rack-test helper methods.
+
   include Rack::Test::Methods
 
-  # We need to declare the `app` value by instantiating the Application
-  # class so our tests work.
   let(:app) { Application.new }
 
   context 'GET /' do
@@ -59,6 +58,21 @@ RSpec.describe Application do
       response = post('/add', name: 'test_name', description: 'test_description', price_per_night: '', availability: '')
       expect(response.status).to eq(200)
       expect(response.body).to include('<p>Listing form invalid!</p>')
+    end
+  end
+
+  context "GET /listing/:id" do
+    it 'returns 200 OK when a listing is found' do
+      response = get('/listing/1')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Details for: Buckingham Palace</h1>')
+      expect(response.body).to include('<p>Description: its alright</p>')
+    end
+
+    xit 'responds to a listing not found' do 
+      response = get('/listing/10')
+      expect(response.status).to eq(200)
     end
   end
 end

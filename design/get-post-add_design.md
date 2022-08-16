@@ -1,4 +1,4 @@
-# {{ METHOD }} {{ PATH}} Route Design Recipe
+# GET/POST '/add' Route Design Recipe
 ## 1. Design the Route Signature
 
 Request: 
