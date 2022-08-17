@@ -36,10 +36,22 @@ class Application < Sinatra::Base
     repo.create(listing)
     redirect('/')
   end
+  
+ get '/listing/:id/add_dates' do
+    @id = params[:id]
+    return erb(:add_date)
+  end
+
+  post '/listing/:id/add_dates' do
+    repo = ListingsRepository.new
+    listing = repo.find_by_id(params[:id])
+    listing[:availability] = params['availability']
+    repo.update(listing)
+    redirect("/listing/#{params[:id]}")
+  end 
 
   get '/listing/:id' do
     repo = ListingsRepository.new
-
     begin
       @listing = repo.find_by_id(params[:id])
       return erb(:listing_id)

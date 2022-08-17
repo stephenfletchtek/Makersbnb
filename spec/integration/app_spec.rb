@@ -75,4 +75,24 @@ RSpec.describe Application do
       expect(response.body).to include('<p>Description: record not found</p>')
     end
   end
+  
+  context 'GET /listing/:id/add_dates' do
+    it 'returns 200 OK when a listing is found' do
+      response = get('/listing/1/add_dates')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<label class="form-label">Is this listing currently available? :</label>')
+      expect(response.body).to include('<input type="text" class="form-control" id="name" placeholder="current availablity" name="availablity" required>')
+    end
+  end
+
+  context "POST /listing:id/add_dates" do
+    it "posts true/false in the listing" do
+      response = post('/listing/1/add_dates', availability: 'available')
+      expect(response.status).to eq(302)
+      expect(response.body).to eq('')
+      details = get('listing/1')
+      expect(details.body).to include('<p>Available dates: available</p>')
+    end
+  end
 end
