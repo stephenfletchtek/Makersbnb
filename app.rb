@@ -42,7 +42,7 @@ class Application < Sinatra::Base
 
     begin
       @listing = repo.find_by_id(params[:id])
-      return erb(:listing_id)
+      return erb(:listing_id_working)
     rescue => e
       @error = e
       erb(:listing_id_error)

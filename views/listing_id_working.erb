@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,7 +26,7 @@
 
    <!-------------------     Navigation Bar            ------------->
 
-    <nav class="navbar navbar-expand-md bg-light navbar-light">
+  <nav class="navbar navbar-expand-md bg-light navbar-light">
       <div class="d-flex container-fluid justify-content-between">
         <a class="navbar-brand" href="#">
           <img
@@ -63,58 +65,28 @@
       </div>
     </nav>
     <p></p>
+
+         <!-------------------  listing Card        ------------->
     
+ 
 
-      <!-------------------     Search bar             ------------->
-      <!-------------------  Add listing button        ------------->
 
-    
-    <section
-      class="mb-5 d-flex justify-content-center align-items-center container-fluid px0"
-    >
-      <div class="form-outline mb-3 input-group rounded" style="width: 30rem">
-        <input
-          type="search"
-          class="form-control form-control-sm rounded"
-          placeholder="Find somewhere to stay..."
-          aria-label="Search"
-          aria-describedby="search-addon"
-        />
-        <span class="input-group-text border-0" id="search-addon">
-          <a href="#"><i class="fas fa-search"></i></a>
-        </span>
+<div class="card mb-3">
+    <img src=" https://cdn.britannica.com/94/148994-050-3EFF8DCB/Buckingham-Palace-Queen-Victoria-Memorial-London-statue.jpg" class="card-img-top" alt="photo of site"/>
+    <div class="card-body">
+      <h5 class="card-title"><%= @listing[:name] %></h5>
+      <p class="card-text"><%= @listing[:description] %></p>
+      <p class="card-text"><%= @listing[:price_per_night] %></p>
+      <p class="card-text"><%= @listing[:availability] %></p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
 
-        <a href="/add">
-         <button type="button" class="btn btn-danger mx-4"> Add New Listing</button> 
-        </a>
-      </div>
-    </section>
-    
-    <!-------------------     Display all listings        ------------->
+  
+   <!-- Latest compiled JavaScript -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <% @all.map do |listing_hash| %>
-
-    <section class="d-flex justify-content-center">
-      <div class="card col-md-2 mx-4" style="width: 18rem">
-        <img src="buckingham.jpg" class="card-img-top" alt="..." />
-        <div class="card-body">
-          <h5 class="card-title"><%= listing_hash[:name] %></h5>
-          <p class="card-text">
-            Price: £<%= listing_hash[:price_per_night] %>
-          </p>
-           <p class="card-text">
-           <%= listing_hash[:description] %>
-          </p>
-          <a href="/listing/<%= listing_hash[:id]%>" class="btn btn-outline-danger">View Listing</a>
-        </div>
-      </div>
-
-      <% end %>
-    </section>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+</body>
 </html>
 
 
