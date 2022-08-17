@@ -23,6 +23,18 @@ describe ListingsRepository do
     expect(listings.first[:price_per_night]).to eq('35')
   end
 
+  it "updates a listing" do 
+    repo = ListingsRepository.new
+
+    listing = repo.find_by_id(1)
+    listing[:availability] = 'available'
+    repo.update(listing)
+    result_listing = repo.find_by_id(1)
+
+    expect(result_listing[:name]).to eq('Buckingham Palace')
+    expect(result_listing[:availability]).to eq('available')
+  end 
+
   #   it 'finds one listing' do
   #     repo = ListingsRepository.new
 

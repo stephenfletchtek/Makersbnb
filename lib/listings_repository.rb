@@ -23,6 +23,14 @@ class ListingsRepository
     result.map { |record| make_listing(record) }[0]
   end
 
+  def update(listing)
+    sql = 'UPDATE listings SET name = $1, description = $2, price_per_night = $3, availability = $4 WHERE id = $5;'
+
+    params = [listing[:name], listing[:description], listing[:price_per_night], listing[:availability], listing[:id]]
+    DatabaseConnection.exec_params(sql, params)
+    return
+  end
+
   private
 
   def make_listing(record)
