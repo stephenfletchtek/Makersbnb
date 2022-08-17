@@ -96,10 +96,7 @@ class DatabaseConnection
         puts '    # ...'
         puts "    db.run(\"DROP IF EXISTS TABLE #{Regexp.last_match(1)};\")"
         puts "    db.run(\"CREATE TABLE #{Regexp.last_match(1)} (id SERIAL PRIMARY KEY, ...);\") # Include your colums here too"
-        puts '    # ...'
-        puts '  end'
-        puts 'Then run:'
-        puts '  ruby reset_tables.rb'
+        puts '    # ...\n  end\nThen run:\n  ruby reset_tables.rb'
       end
     when /column .* does not exist/
       puts "My guess: You haven't created the column `#{Regexp.last_match(1)}`.".blue
@@ -108,10 +105,7 @@ class DatabaseConnection
       puts '    # ...'
       puts "    db.run(\"DROP IF EXISTS TABLE #{Regexp.last_match(1)};\")"
       puts "    db.run(\"CREATE TABLE #{Regexp.last_match(1)} (id SERIAL PRIMARY KEY, ...);\") # Include your column here"
-      puts '    # ...'
-      puts '  end'
-      puts 'Then run:'
-      puts '  ruby reset_tables.rb'
+      puts '    # ...\n  end\nThen run:\n  ruby reset_tables.rb'
     end
   ensure
     exit

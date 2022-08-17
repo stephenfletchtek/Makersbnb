@@ -12,7 +12,6 @@ def reset_listings_table
 end
 
 RSpec.describe Application do
-
   before(:each) do
     reset_listings_table
   end
@@ -27,7 +26,7 @@ RSpec.describe Application do
 
       expect(response.status).to eq(200)
       expect(response.body).to include('<title>MakersBnB</title>')
-      expect(response.body).to include('<nav class="navbar navbar-default">')
+      expect(response.body).to include('<nav class="navbar navbar-inverse">')
     end
   end
 
@@ -48,8 +47,8 @@ RSpec.describe Application do
                               availability: 'test_date')
       expect(response.status).to eq(302)
       expect(response.body).to eq('')
-      # confirm = get('/')
-      # expect(confirm.status).to eq(200)
+      confirm = get('/')
+      expect(confirm.status).to eq(200)
       # expect(confirm.body).to include('test_name')
       # expect(confirm.body).to include('test_description')
     end
@@ -61,7 +60,7 @@ RSpec.describe Application do
     end
   end
 
-  context "GET /listing/:id" do
+  context 'GET /listing/:id' do
     it 'returns 200 OK when a listing is found' do
       response = get('/listing/1')
 
@@ -70,9 +69,10 @@ RSpec.describe Application do
       expect(response.body).to include('<p>Description: its alright</p>')
     end
 
-    xit 'responds to a listing not found' do 
+    it 'responds to a listing not found' do
       response = get('/listing/10')
       expect(response.status).to eq(200)
+      expect(response.body).to include('<p>Description: record not found</p>')
     end
   end
 end

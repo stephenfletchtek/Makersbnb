@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require './lib/database_connection'
 require 'sinatra/base'
 require 'sinatra/reloader'
@@ -6,6 +7,7 @@ require './lib/listings_repository'
 
 DatabaseConnection.connect('makersbnb_test')
 
+# MakersBnb web app
 class Application < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
@@ -37,8 +39,14 @@ class Application < Sinatra::Base
 
   get '/listing/:id' do
     repo = ListingsRepository.new
-    @listing = repo.find_by_id(params[:id])
-    return erb(:listing_id)
+
+    begin
+      @listing = repo.find_by_id(params[:id])
+      return erb(:listing_id)
+    rescue => e
+      @error = e
+      erb(:listing_id_error)
+    end
   end
 
   private
