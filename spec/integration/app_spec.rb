@@ -26,8 +26,7 @@ RSpec.describe Application do
 
       expect(response.status).to eq(200)
       expect(response.body).to include('<title>MakersBnB</title>')
-      # These need updating to match Brij and Harry's homepage
-      # expect(response.body).to include('<nav class="navbar navbar-inverse">')
+      expect(response.body).to include('<nav class="navbar navbar-expand-md bg-light navbar-light">')
     end
   end
 
@@ -36,10 +35,9 @@ RSpec.describe Application do
       response = get('/add')
 
       expect(response.status).to eq(200)
-      # These need updating to match Brij nad Harry's add page
-      # expect(response.body).to include('<input type="submit" value="Add Listing"/>')
-      # expect(response.body).to include('<form action="/add" method="POST">')
-      # expect(response.body).to include('<input type="text" name="price_per_night">')
+      expect(response.body).to include(' <title>Add accomodation</title>')
+      expect(response.body).to include('<form action="/add" method="POST" class="">')
+      expect(response.body).to include('<input type="text" class="form-control" id="price_per_night" placeholder="Price per night..." name="price_per_night" required>')
     end
   end
 
@@ -67,8 +65,8 @@ RSpec.describe Application do
       response = get('/listing/1')
 
       expect(response.status).to eq(200)
-      expect(response.body).to include('<h1>Details for: Buckingham Palace</h1>')
-      expect(response.body).to include('<p>Description: its alright</p>')
+      expect(response.body).to include('<h5 class="card-title">Buckingham Palace</h5>')
+      expect(response.body).to include('<p class="card-text">its alright</p>')
     end
 
     it 'responds to a listing not found' do
