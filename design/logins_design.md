@@ -1,6 +1,8 @@
 # GET '/login' Route Design Recipe
 ## 1. Design the Route Signature
 
+# GET '/login'
+
 Request: 
     GET '/login'
 Response: 
@@ -16,6 +18,8 @@ Response:
   status: (302)
   body ''
   redirect to ('/')
+ _______________________________
+# GET '/signup' could be added here
 
 
 ## 2. Design the Response
