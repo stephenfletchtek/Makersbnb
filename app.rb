@@ -5,6 +5,7 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require './lib/listings_repository'
 require './lib/user_repository'
+require './lib/booking_repository'
 
 
 DatabaseConnection.connect('makersbnb_test')
