@@ -6,6 +6,15 @@ INSERT INTO listings (name, description, price_per_night, availability, image_ur
 ('Fawlty Towers', 'A very wonky place to stay', 40, '09-Sept-2022', 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/Fawlty_Towers_title_card.jpg/250px-Fawlty_Towers_title_card.jpg' ),
 ('Mayfair Place', 'An expensive 5 bedroom home', 100, '14-Sept-2022',' https://hubble.imgix.net/listings/uploads/spaces/1032/2015-08-20_16%2B46%2B01%2B407082_Mayfair%20Building%2050size%20.jpg' );
 
+
+INSERT INTO listings (name, description, price_per_night, availability, image_url) VALUES
+('Portaloo',
+'Very cramped',
+500,
+'2022-0000000000000000000000000000000-0000000000000000000000000000-0000000000000000000000000000000-000000000000000000000000000000-0000000000000000000000000000000-000000000000000000000000000000-0000000000000000000000000000000-0000000000000000000000000000000-000000000000000000000000000000-0000000000000000000000000000000-000000000000000000000000000000-0000000000000000000000000000000',
+'https://www.andyloos.co.uk/wp-content/uploads/2018/04/Green-Standard-Portable-Toilet-3.jpg');
+
+
 INSERT INTO users (email, password) VALUES
 ('duck@makers.com', '$2a$12$uYZrF/quUM2RdvA2ylfs4eMTns0PUUtKy3wsdR8XtKnc/QmZD02CK'),
 ('duck2@makers.com', '$2a$12$qmO3XbZHMXhymqZBstr48O0rW8ubyqAITgm9T.cIoQrk0CMEEfECm'),
