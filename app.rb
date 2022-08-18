@@ -93,7 +93,7 @@ class Application < Sinatra::Base
     rescue => e
       # change this line to alert for user not found
       puts "error: #{e}"
-      false      
+      false
     end
   end
 end
