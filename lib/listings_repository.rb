@@ -9,10 +9,10 @@ class ListingsRepository
   end
 
   def create(listing)
-    # sql = 'INSERT INTO listings (name, desription, price_per_night, availability)
-    #   VALUES $1, $2, $3, $4'
-    # params = [listing[:name], listing[:description], listing[:price_per_night], listing[:availability]]
-    # DatabaseConnection.exec_params(sql, params)
+    sql = 'INSERT INTO listings (name, description, price_per_night, availability)
+      VALUES ($1, $2, $3, $4)'
+    params = [listing[:name], listing[:description], listing[:price_per_night], listing[:availability]]
+    DatabaseConnection.exec_params(sql, params)
   end
 
   def find_by_id(id)
