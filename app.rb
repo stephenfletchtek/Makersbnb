@@ -28,7 +28,8 @@ class Application < Sinatra::Base
       name: params['name'],
       description: params['description'],
       price_per_night: params['price_per_night'],
-      availability: params['availability']
+      availability: params['availability'],
+      image_url: params['image_url']
     }
     return erb(:add_form_error) unless listing_valid?(listing)
 

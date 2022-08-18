@@ -3,5 +3,6 @@ CREATE TABLE listings (
   name text,
   description text,
   price_per_night int,
-  availability text
+  availability text,
+  image_url text
 );

@@ -9,9 +9,9 @@ class ListingsRepository
   end
 
   def create(listing)
-    sql = 'INSERT INTO listings (name, description, price_per_night, availability)
-      VALUES ($1, $2, $3, $4)'
-    params = [listing[:name], listing[:description], listing[:price_per_night], listing[:availability]]
+    sql = 'INSERT INTO listings (name, description, price_per_night, availability, image_url)
+      VALUES ($1, $2, $3, $4, $5)'
+    params = [listing[:name], listing[:description], listing[:price_per_night], listing[:availability], listing[:image_url]]
     DatabaseConnection.exec_params(sql, params)
   end
 
@@ -24,9 +24,9 @@ class ListingsRepository
   end
 
   def update(listing)
-    sql = 'UPDATE listings SET name = $1, description = $2, price_per_night = $3, availability = $4 WHERE id = $5;'
+    sql = 'UPDATE listings SET name = $1, description = $2, price_per_night = $3, availability = $4, image_url = $5 WHERE id = $6;'
 
-    params = [listing[:name], listing[:description], listing[:price_per_night], listing[:availability], listing[:id]]
+    params = [listing[:name], listing[:description], listing[:price_per_night], listing[:availability], listing[:id], listing[:image_url]]
     DatabaseConnection.exec_params(sql, params)
     return
   end
@@ -39,7 +39,8 @@ class ListingsRepository
       name: record['name'],
       description: record['description'],
       price_per_night: record['price_per_night'],
-      availability: record['availability']
+      availability: record['availability'],
+      image_url: record['image_url']
     }
   end
 end
