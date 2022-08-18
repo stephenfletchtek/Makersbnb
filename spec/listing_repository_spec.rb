@@ -18,21 +18,21 @@ describe ListingsRepository do
 
     listings = repo.all
 
-    expect(listings.length).to eq(3)
-    expect(listings.first[:name]).to eq('Buckingham Palace')
-    expect(listings.first[:price_per_night]).to eq('35')
+    expect(listings.ntuples).to eq(3)
+    expect(listings.first['name']).to eq('Buckingham Palace')
+    expect(listings.first['price_per_night']).to eq('35')
   end
 
   it "updates a listing" do 
     repo = ListingsRepository.new
 
     listing = repo.find_by_id(1)
-    listing[:availability] = 'available'
+    listing['availability'] = 'available'
     repo.update(listing)
     result_listing = repo.find_by_id(1)
 
-    expect(result_listing[:name]).to eq('Buckingham Palace')
-    expect(result_listing[:availability]).to eq('available')
+    expect(result_listing['name']).to eq('Buckingham Palace')
+    expect(result_listing['availability']).to eq('9-Oct-2022')
   end 
 
   #   it 'finds one listing' do

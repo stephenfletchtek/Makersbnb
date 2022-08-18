@@ -72,14 +72,14 @@
 
 <section class="d-flex justify-content-center align-items-center">
 <div class="card mb-5 mt-5 mx-4" style="width: 50rem">
-    <img src=<%=@listing[:image_url]%> class="card-img-top" alt="photo of site"/>
+    <img src=<%=@listing['image_url']%> class="card-img-top" alt="photo of site"/>
     <div class="card-body">
-      <h5 class="card-title"><%= @listing[:name] %></h5>
-      <p class="card-text"><%= @listing[:description] %></p>
-      <p class="card-text">£<%= @listing[:price_per_night] %> per night</p>
-      <p class="card-text"><%= @listing[:availability] %></p>
+      <h5 class="card-title"><%= @listing['name'] %></h5>
+      <p class="card-text"><%= @listing['description'] %></p>
+      <p class="card-text">£<%= @listing['price_per_night'] %> per night</p>
+      <p class="card-text"><%= @listing['availability'] %></p>
       <a href="/bookings"><button type="submit" class="btn btn-danger">Book now</button></a>
-      <button type="submit" class="btn btn-danger">Update the availability of this location</button>
+      <a href="/listing/:id/add_dates"><button type="submit" class="btn btn-danger">Update the availability of this location</button></a>
       <br>
       <br>
         <a class="navbar-brand" href="/">
