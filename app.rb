@@ -80,10 +80,17 @@ class Application < Sinatra::Base
 
   post '/listing/:id/book' do
     return erb(:not_logged_in) unless session[:user_email]
-    repo = ListingsRepository.new
-    listing = repo.find_by_id(params[:id])
-    listing['availability'] = params[:availability]
-    repo.update(listing)
+    booking_repo = BookingRepository.new
+    user_repo = UserRepository.new
+    listing_id = params[:id]
+    user_id = user_repo.find_by_email(session[:user_email])['id']
+    booking = {
+      'listing_id' => listing_id,
+      'user_id' => user_id,
+      'date_booked' => params[:availability],
+      'status' => 'pending'
+    }
+    booking_repo.create(booking)
     redirect('/bookings')
   end
 
@@ -110,7 +117,6 @@ class Application < Sinatra::Base
 
     @display_bookings = bookings.map do |booking|
       {
-        # :name needs to be a symbol because the way listings_repo is structured
         name: lrepo.find_by_id(booking['listing_id'])['name'],
         email: urepo.find_by_id(booking['user_id'])['email'],
         date: booking['date_booked'],

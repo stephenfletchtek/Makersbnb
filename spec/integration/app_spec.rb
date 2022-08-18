@@ -176,8 +176,13 @@ RSpec.describe Application do
       response = post('listing/1/book', availability: '2022-12-24')
       expect(response.status).to eq(302)
       expect(response.body).to eq ('')
-      
-      expect(ListingsRepository.new.find_by_id(1)['availability']).to eq('2022-12-24')
+      expect(BookingRepository.new.all[3]['date_booked']).to eq('2022-12-24')
+    end
+
+    it "when not logged in - listing/1/book" do
+      response = post('listing/1/book', availability: '2022-12-24')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>You need to log in to perform this action</h1>')
     end
   end
 end
