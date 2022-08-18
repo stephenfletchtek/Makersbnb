@@ -73,6 +73,7 @@ class Application < Sinatra::Base
 
   get '/listing/:id/book' do
     return erb(:not_logged_in) unless session[:user_email]
+    @id = params[:id]
     @listing = ListingsRepository.new.find_by_id(params[:id])
     return erb(:book_date)
   end

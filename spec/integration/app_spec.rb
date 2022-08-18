@@ -176,6 +176,7 @@ RSpec.describe Application do
       response = post('listing/1/book', availability: '2022-12-24')
       expect(response.status).to eq(302)
       expect(response.body).to eq ('')
+      
       expect(ListingsRepository.new.find_by_id(1)['availability']).to eq('2022-12-24')
     end
   end
