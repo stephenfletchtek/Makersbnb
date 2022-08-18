@@ -43,7 +43,8 @@ RSpec.describe Application do
   context 'POST /add' do
     it 'returns 302 OK if a completed form is submitted' do
       response = post('/add', name: 'test_name', description: 'test_description', price_per_night: 23,
-                              availability: 'test_date', image_url: 'https://i2-prod.mylondon.news/incoming/article19572361.ece/ALTERNATES/s615/1937_SUR105926_IMG_00_0000jpegjpgBarnard-Marcus.jpg')
+        availability: 'test_date', image_url: 'https://i2-prod.mylondon.news/incoming/article19572361.ece/ALTERNATES/s615/1937_SUR105926_IMG_00_0000jpegjpgBarnard-Marcus.jpg')
+
       expect(response.status).to eq(302)
       expect(response.body).to eq('')
       confirm = get('/')
@@ -94,4 +95,50 @@ RSpec.describe Application do
       expect(details.body).to include('<a class="nav-link" href="#">Log In</a>')
     end
   end
+
+  context "GET /login" do
+    it "gets login form" do
+      response = get('/login')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('method="POST"')
+      expect(response.body).to include('action="/login"')
+      expect(response.body).to include('name="email"')
+    end
+  end
+
+  context "POST /login" do
+    it "logs in" do
+      response = post('/login', email: 'duck@makers.com', password: 'quack!')
+      expect(response.status).to eq(302)
+      expect(response.body).to eq('')
+      homepage = get('/')
+      expect(homepage.body).to include('duck@makers.com')
+    end
+
+    it "doesn't log in with wrong password" do
+      response = post('/login', email: 'duck@makers.com', password: 'woof!')
+      expect(response.status).to eq(302)
+      expect(response.body).to eq('')
+      homepage = get('/')
+      expect(homepage.body).not_to include('duck@makers.com')
+    end
+
+    it "doesn't log in with non existent email" do
+      response = post('/login', email: 'dog@makers.com', password: 'quack!')
+      expect(response.status).to eq(302)
+      expect(response.body).to eq('')
+      homepage = get('/')
+      expect(homepage.body).not_to include('dog@makers.com')
+    end
+
+    it "log in user_2 causes user_1 to log out" do
+      response = post('/login', email: 'duck@makers.com', password: 'quack!')
+      response = post('/login', email: 'homer@simpsons.com', password: 'springfield1')
+      expect(response.status).to eq(302)
+      expect(response.body).to eq('')
+      homepage = get('/')
+      expect(homepage.body).not_to include('duck@makers.com')
+      expect(homepage.body).to include('homer@simpsons.com')
+    end
+  end  
 end
