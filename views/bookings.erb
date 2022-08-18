@@ -62,20 +62,26 @@
     <p></p>
     
       <!-------------------     Bookings page             ------------->
+
+     
+
     <section class="d-flex justify-content-center align-items-center mt-5">
+     <% @display_bookings.each do |booking| %>
   <div class="card" style="width: 35rem">
     <img src="..." class="card-img-top" alt="..." />
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
+      <h5 class="card-title"><%=booking[:name]%></h5>
       <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
+        <%=booking[:email]%> <br>
+        <%=booking[:date]%> <br>
+        <%=booking[:status]%> 
       </p>
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">An item</li>
     </ul>
   </div>
+  <% end %>
 </section>
 
 

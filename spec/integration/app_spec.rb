@@ -141,4 +141,18 @@ RSpec.describe Application do
       expect(homepage.body).to include('homer@simpsons.com')
     end
   end  
+
+
+  context "bookings page" do 
+    it "GET '/bookings" do 
+      response = get('/bookings')
+      expect(response.status).to eq 200 
+      expect(response.body).to include "Buckingham Palace" 
+      expect(response.body).to include "duck@makers.com" 
+      expect(response.body).to include "2022-12-25"
+      expect(response.body).to include "pending"
+      expect(response.body).to include "confirmed"
+      expect(response.body).to include "denied"
+     end
+  end   
 end

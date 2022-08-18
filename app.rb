@@ -80,7 +80,25 @@ class Application < Sinatra::Base
     end
   end
 
-  get '/bookings' do 
+  get '/bookings' do
+    lrepo = ListingsRepository.new
+    urepo = UserRepository.new
+
+    #  get an @array of all the bookings for erb
+    #  add display values to each booking hash 
+
+    bookings = BookingRepository.new.all
+
+    @display_bookings = bookings.map do |booking|
+      {
+        # :name needs to be a symbol because the way listings_repo is structured
+        name: lrepo.find_by_id(booking['listing_id'])[:name],
+        email: urepo.find_by_id(booking['user_id'])['email'],
+        date: booking['date_booked'],
+        status: booking['status']
+      }    
+    end
+
     return erb(:bookings)
   end
 

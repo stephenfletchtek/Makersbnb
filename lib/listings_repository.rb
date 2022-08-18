@@ -33,6 +33,9 @@ class ListingsRepository
 
   private
 
+  # Only done here and has caused confusion
+  # This is the only repo that returns results hash with symbols
+
   def make_listing(record)
     {
       id: record['id'].to_i,

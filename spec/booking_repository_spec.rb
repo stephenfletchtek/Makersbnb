@@ -6,7 +6,6 @@ def reset_tables
   connection.exec(seed_sql)
 end
 
-
 describe BookingRepository do
   before(:each) do 
     reset_tables
