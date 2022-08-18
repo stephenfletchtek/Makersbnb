@@ -45,7 +45,7 @@ describe UserRepository do
 
   #5 
   it "fails for Blank email - might be blocked front end" do
-    repo = UserRepository.new
+    repo = UserRepository.new()
     expect{ repo.sign_in('', 'rubbish') }.to raise_error "user not found"
   end
 

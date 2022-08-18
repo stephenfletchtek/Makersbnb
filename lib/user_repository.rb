@@ -1,6 +1,9 @@
 require 'BCrypt'
 
 class UserRepository
+  def initialize(enc = BCrypt::Password)
+    @enc = enc
+  end
   
   def find(email)
     sql = 'SELECT * FROM users WHERE email = $1;'
@@ -12,7 +15,7 @@ class UserRepository
 
   def sign_in(email, password)
     user = find(email)
-    BCrypt::Password.new(user['password']) == password 
+    @enc.new(user['password']) == password 
   end
 
 end
