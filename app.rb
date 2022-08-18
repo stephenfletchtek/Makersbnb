@@ -30,7 +30,8 @@ class Application < Sinatra::Base
       price_per_night: params['price_per_night'],
       availability: params['availability'],
       image_url: params['image_url']
-    }
+    } 
+    listing[:availability] = 'false' if listing[:availability] == nil
     return erb(:add_form_error) unless listing_valid?(listing)
 
     repo = ListingsRepository.new
@@ -51,6 +52,7 @@ class Application < Sinatra::Base
     repo = ListingsRepository.new
     listing = repo.find_by_id(params[:id])
     listing[:availability] = params['availability']
+    listing[:availability] = 'false' if listing[:availability] == nil
     repo.update(listing)
     redirect("/listing/#{params[:id]}")
   end 
@@ -66,6 +68,9 @@ class Application < Sinatra::Base
     end
   end
 
+  get '/bookings' do 
+    return erb(:bookings)
+  end
 
   private
 

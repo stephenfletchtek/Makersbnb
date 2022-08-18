@@ -81,7 +81,7 @@ RSpec.describe Application do
       response = get('/listing/1/add_dates')
 
       expect(response.status).to eq(200)
-      expect(response.body).to include('<label class="form-label">Is this listing currently available? :</label>')
+      expect(response.body).to include('<label class="form-label">Is this listing currently available?</label>')
       expect(response.body).to include('<input type="text" class="form-control" id="availability" placeholder="current availablity" name="availability" required>')
     end
   end

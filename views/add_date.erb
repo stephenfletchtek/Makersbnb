@@ -32,7 +32,7 @@
       <div class="d-flex container-fluid justify-content-between">
         <a class="navbar-brand" href="#">
           <img
-            src="logo_new.png"
+            src="https://drive.google.com/uc?export=view&id=1yKjePXHyNiM6WW9D3QVKNfXwWzaIH_s7"
             alt="Avatar Logo"
             style="width: 100px"
             class="rounded-circle"
@@ -77,9 +77,12 @@
     >
   <form action="/listing/<%="#{@id}"%>/add_dates" method="POST" class="">
     <div class="mb-3 mt-3 ">
-      <label class="form-label">Is this listing currently available? :</label>
-      <input type="text" class="form-control" id="availability" placeholder="current availablity" name="availability" required>
+      <label class="form-label">Is this listing currently available?</label>
     </div>
+      <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="true" name="availability">
+      <label class="form-check-label mb-3" for="flexSwitchCheckDefault">Availability</label>
+   </div> 
     <button type="submit" class="btn btn-outline-danger">Submit</button>
   </form>
 
