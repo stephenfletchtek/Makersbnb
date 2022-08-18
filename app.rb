@@ -37,7 +37,11 @@ class Application < Sinatra::Base
     repo.create(listing)
     redirect('/')
   end
-  
+
+  get '/login' do
+    return erb(:login)
+  end
+
  get '/listing/:id/add_dates' do
     @id = params[:id]
     return erb(:add_date)
@@ -62,11 +66,11 @@ class Application < Sinatra::Base
     end
   end
 
+
   private
 
   def listing_valid?(listing)
     return false if listing.values.any? { |v| v.nil? || v.empty? || v != v.strip }
-
     true
   end
 end
