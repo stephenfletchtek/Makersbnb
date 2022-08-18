@@ -3,7 +3,7 @@
 require 'listings_repository'
 
 def reset_listings_table
-  seed_sql = File.read('spec/schemas+seeds/seeds_listings.sql')
+  seed_sql = File.read('spec/schemas+seeds/seeds_all.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test' })
   connection.exec(seed_sql)
 end

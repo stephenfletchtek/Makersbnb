@@ -3,53 +3,57 @@
 ## 1. Extract nouns from the user stories or specification
 
 ```
-One airbnb, many bookings 
+One listing, many bookings 
 One User, many bookings 
-One booking, one location, one renter
-
+One booking, one listing, one renter
 
 ```
 
 ```
 Nouns:
 
-Listing-
-     name, description, price_per_night, dates
+Booking, listing, user
+     
 ```
 
 ## 2. Infer the Table Name and Columns
 
 Put the different nouns in this table. Replace the example with your own nouns.
 
-| Record                | Properties          |
-| --------------------- | ------------------  |
-| listings               name, description, price_per_night, availabilty
+| Record                | Properties                                 |
+| --------------------- | ------------------------------------------ |
+| bookings              | listing_id, user_id, date_booked, status   |
 
 
 ## 3. Decide the column types.
 ```
 # EXAMPLE:
 
-Table: listings
+Table: bookings
 id: SERIAL
-name: text
-description: text
-price_per_night: int 
-availabilty: text
+listing_id: int
+user_id: int
+date_booked: text 
+status: text
 ```
 
 ## 3. Write the SQL.
 
 ```sql
 
-CREATE TABLE listings (
+CREATE TABLE bookings (
   id SERIAL PRIMARY KEY,
-  name text,
-  description text,
-  price_per_night int,
-  availabilty text
+  listing_id int,
+  user_id int,
+  date_booked text,
+  status text,
+  constraint fk_listing foreign key(listing_id)
+    references listings(id)
+    on delete cascade,
+  constraint fk_user foreign key(user_id)
+    references users(id)
+    on delete cascade
 );
-
 
 
 ```
@@ -57,5 +61,5 @@ CREATE TABLE listings (
 ## 4. Create the tables.
 
 ```bash
-psql -h 127.0.0.1 makersbnb_test < lists_table.sql
+psql -h 127.0.0.1 makersbnb_test < bookings_table.sql
 ```

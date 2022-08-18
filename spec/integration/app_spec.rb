@@ -5,7 +5,7 @@ require_relative '../../app'
 require 'json'
 
 def reset_listings_table
-  seed_sql = File.read('spec/schemas+seeds/seeds_listings.sql')
+  seed_sql = File.read('spec/schemas+seeds/seeds_all.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test' })
   connection.exec(seed_sql)
 end
@@ -77,7 +77,7 @@ RSpec.describe Application do
   end
   
   context 'GET /listing/:id/add_dates' do
-    it 'returns 200 OK when a listing is found' do
+    xit 'returns 200 OK when a listing is found' do
       response = get('/listing/1/add_dates')
 
       expect(response.status).to eq(200)
