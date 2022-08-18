@@ -1,0 +1,11 @@
+<html>
+  <head></head>
+  <body>
+    <h1><%= @listing['name'] %></h1>
+    <form method="POST" action="/listing/<%=@id%>/book">
+      <label class="form-label">Select date:</label>
+      <input type="text" class="form-control" id="image_url" placeholder="yyyy-mm-dd..." name="availability" required> 
+      <button type="submit" value="submit" class="btn btn-outline-danger">Submit</button>
+    </form>
+  </body>
+</html>

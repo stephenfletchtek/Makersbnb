@@ -32,7 +32,7 @@ describe ListingsRepository do
     result_listing = repo.find_by_id(1)
 
     expect(result_listing['name']).to eq('Buckingham Palace')
-    expect(result_listing['availability']).to eq('9-Oct-2022')
+    expect(result_listing['availability']).to eq('available')
   end 
 
   #   it 'finds one listing' do

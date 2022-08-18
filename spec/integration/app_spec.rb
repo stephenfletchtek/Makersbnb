@@ -142,7 +142,6 @@ RSpec.describe Application do
     end
   end  
 
-
   context "bookings page" do 
     it "GET '/bookings" do 
       response = get('/bookings')
@@ -154,5 +153,30 @@ RSpec.describe Application do
       expect(response.body).to include "confirmed"
       expect(response.body).to include "denied"
      end
-  end   
+  end
+  
+  context "get book a listing" do
+    it "when logged in - listing/1/book" do
+      post('/login', email: 'duck@makers.com', password: 'quack!')
+      response = get('listing/1/book')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Buckingham Palace')
+    end
+
+    it "when not logged in - listing/1/book" do
+      response = get('listing/1/book')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>You need to log in to perform this action</h1>')
+    end
+  end
+
+  context "post book a listing" do
+    it "when logged in - listing/1/book" do
+      post('/login', email: 'duck@makers.com', password: 'quack!')
+      response = post('listing/1/book', availability: '2022-12-24')
+      expect(response.status).to eq(302)
+      expect(response.body).to eq ('')
+      expect(ListingsRepository.new.find_by_id(1)['availability']).to eq('2022-12-24')
+    end
+  end
 end

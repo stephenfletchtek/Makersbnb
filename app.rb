@@ -71,9 +71,25 @@ class Application < Sinatra::Base
     redirect("/listing/#{params[:id]}")
   end 
 
+  get '/listing/:id/book' do
+    return erb(:not_logged_in) unless session[:user_email]
+    @listing = ListingsRepository.new.find_by_id(params[:id])
+    return erb(:book_date)
+  end
+
+  post '/listing/:id/book' do
+    return erb(:not_logged_in) unless session[:user_email]
+    repo = ListingsRepository.new
+    listing = repo.find_by_id(params[:id])
+    listing['availability'] = params[:availability]
+    repo.update(listing)
+    redirect('/bookings')
+  end
+
   get '/listing/:id' do
     repo = ListingsRepository.new
     begin
+      @id = params[:id]
       @listing = repo.find_by_id(params[:id])
       return erb(:listing_id)
     rescue => e
