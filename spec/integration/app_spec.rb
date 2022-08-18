@@ -107,17 +107,38 @@ RSpec.describe Application do
   end
 
   context "POST /login" do
-    xit "logs in" do
-
+    it "logs in" do
+      response = post('/login', email: 'duck@makers.com', password: 'quack!')
+      expect(response.status).to eq(302)
+      expect(response.body).to eq('')
+      homepage = get('/')
+      expect(homepage.body).to include('duck@makers.com')
     end
 
-    xit "doesn't log in wrong password" do
+    it "doesn't log in with wrong password" do
+      response = post('/login', email: 'duck@makers.com', password: 'woof!')
+      expect(response.status).to eq(302)
+      expect(response.body).to eq('')
+      homepage = get('/')
+      expect(homepage.body).not_to include('duck@makers.com')
     end
 
-    xit "doesn't log in non existant email" do
+    it "doesn't log in with non existent email" do
+      response = post('/login', email: 'dog@makers.com', password: 'quack!')
+      expect(response.status).to eq(302)
+      expect(response.body).to eq('')
+      homepage = get('/')
+      expect(homepage.body).not_to include('dog@makers.com')
     end
 
-    xit "log in user_2 causes user_1 to log out" do
+    it "log in user_2 causes user_1 to log out" do
+      response = post('/login', email: 'duck@makers.com', password: 'quack!')
+      response = post('/login', email: 'homer@simpsons.com', password: 'springfield1')
+      expect(response.status).to eq(302)
+      expect(response.body).to eq('')
+      homepage = get('/')
+      expect(homepage.body).not_to include('duck@makers.com')
+      expect(homepage.body).to include('homer@simpsons.com')
     end
-  end
+  end  
 end

@@ -4,6 +4,7 @@ require './lib/database_connection'
 require 'sinatra/base'
 require 'sinatra/reloader'
 require './lib/listings_repository'
+require './lib/user_repository'
 
 DatabaseConnection.connect('makersbnb_test')
 
@@ -13,9 +14,12 @@ class Application < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  enable :sessions
+
   get '/' do
     repo = ListingsRepository.new
     @all = repo.all
+    @user = session[:user_email]
     return erb(:index)
   end
 
@@ -43,7 +47,15 @@ class Application < Sinatra::Base
     return erb(:login)
   end
 
- get '/listing/:id/add_dates' do
+  post '/login' do
+    email = params[:email]
+    password = params[:password]
+    return redirect('/login') unless sign_in(email, password) == true
+    session[:user_email] = email
+    redirect('/')
+  end
+
+  get '/listing/:id/add_dates' do
     @id = params[:id]
     return erb(:add_date)
   end
@@ -77,5 +89,16 @@ class Application < Sinatra::Base
   def listing_valid?(listing)
     return false if listing.values.any? { |v| v.nil? || v.empty? || v != v.strip }
     true
+  end
+
+  def sign_in(email, password)
+    begin
+      repo = UserRepository.new
+      return repo.sign_in(email, password)
+    rescue => e
+      # change this line to alert for user not found
+      puts "error: #{e}"
+      false
+    end
   end
 end
