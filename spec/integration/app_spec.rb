@@ -140,6 +140,5 @@ RSpec.describe Application do
       expect(homepage.body).not_to include('duck@makers.com')
       expect(homepage.body).to include('homer@simpsons.com')
     end
-  end
-  
+  end  
 end
