@@ -6,6 +6,7 @@ require 'sinatra/reloader'
 require './lib/listings_repository'
 require './lib/user_repository'
 
+
 DatabaseConnection.connect('makersbnb_test')
 
 # MakersBnb web app
@@ -95,8 +96,9 @@ class Application < Sinatra::Base
         name: lrepo.find_by_id(booking['listing_id'])[:name],
         email: urepo.find_by_id(booking['user_id'])['email'],
         date: booking['date_booked'],
-        status: booking['status']
-      }    
+        status: booking['status'],
+        image_url: lrepo.find_by_id(booking['listing_id'])[:image_url]
+      }
     end
 
     return erb(:bookings)

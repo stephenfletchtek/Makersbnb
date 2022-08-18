@@ -19,7 +19,6 @@ class ListingsRepository
     sql = 'SELECT * FROM listings WHERE id = $1;'
     result = DatabaseConnection.exec_params(sql, [id])
     raise 'record not found' if result.ntuples.zero?
-
     result.map { |record| make_listing(record) }[0]
   end
 
