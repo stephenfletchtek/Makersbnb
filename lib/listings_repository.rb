@@ -26,7 +26,7 @@ class ListingsRepository
   def update(listing)
     sql = 'UPDATE listings SET name = $1, description = $2, price_per_night = $3, availability = $4, image_url = $5 WHERE id = $6;'
 
-    params = [listing[:name], listing[:description], listing[:price_per_night], listing[:availability], listing[:id], listing[:image_url]]
+    params = [listing[:name], listing[:description], listing[:price_per_night], listing[:availability], listing[:image_url], listing[:id]]
     DatabaseConnection.exec_params(sql, params)
     return
   end

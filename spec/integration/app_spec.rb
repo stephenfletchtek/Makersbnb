@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require 'spec_helper'
 require 'rack/test'
 require_relative '../../app'
@@ -42,9 +41,9 @@ RSpec.describe Application do
   end
 
   context 'POST /add' do
-    it 'returns 200 OK if a completed form is submitted' do
-      response = post('/add', name: 'test_name', description: 'test_description', price_per_night: 'test_price',
-                              availability: 'test_date')
+    it 'returns 302 OK if a completed form is submitted' do
+      response = post('/add', name: 'test_name', description: 'test_description', price_per_night: 23,
+                              availability: 'test_date', image_url: 'https://i2-prod.mylondon.news/incoming/article19572361.ece/ALTERNATES/s615/1937_SUR105926_IMG_00_0000jpegjpgBarnard-Marcus.jpg')
       expect(response.status).to eq(302)
       expect(response.body).to eq('')
       confirm = get('/')
@@ -66,7 +65,7 @@ RSpec.describe Application do
 
       expect(response.status).to eq(200)
       expect(response.body).to include('<h5 class="card-title">Buckingham Palace</h5>')
-      expect(response.body).to include('<p class="card-text">its alright</p>')
+      expect(response.body).to include('<a class="nav-link" href="#">Log In</a>')
     end
 
     it 'responds to a listing not found' do
@@ -82,7 +81,7 @@ RSpec.describe Application do
 
       expect(response.status).to eq(200)
       expect(response.body).to include('<label class="form-label">Is this listing currently available? :</label>')
-      expect(response.body).to include('<input type="text" class="form-control" id="name" placeholder="current availablity" name="availablity" required>')
+      expect(response.body).to include('<input type="text" class="form-control" id="availability" placeholder="current availablity" name="availability" required>')
     end
   end
 
@@ -92,7 +91,7 @@ RSpec.describe Application do
       expect(response.status).to eq(302)
       expect(response.body).to eq('')
       details = get('listing/1')
-      expect(details.body).to include('<p>Available dates: available</p>')
+      expect(details.body).to include('<a class="nav-link" href="#">Log In</a>')
     end
   end
 end
