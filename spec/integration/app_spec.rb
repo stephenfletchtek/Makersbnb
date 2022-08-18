@@ -69,7 +69,7 @@ RSpec.describe Application do
       expect(response.body).to include('<a class="nav-link" href="#">Log In</a>')
     end
 
-    xit 'responds to a listing not found' do
+    it 'responds to a listing not found' do
       response = get('/listing/10')
       expect(response.status).to eq(200)
       expect(response.body).to include('<p>Description: record not found</p>')
@@ -77,7 +77,7 @@ RSpec.describe Application do
   end
   
   context 'GET /listing/:id/add_dates' do
-    xit 'returns 200 OK when a listing is found' do
+    it 'returns 200 OK when a listing is found' do
       response = get('/listing/1/add_dates')
 
       expect(response.status).to eq(200)
@@ -87,12 +87,37 @@ RSpec.describe Application do
   end
 
   context "POST /listing:id/add_dates" do
-    xit "posts true/false in the listing" do
+    it "posts true/false in the listing" do
       response = post('/listing/1/add_dates', availability: 'available')
       expect(response.status).to eq(302)
       expect(response.body).to eq('')
       details = get('listing/1')
       expect(details.body).to include('<a class="nav-link" href="#">Log In</a>')
+    end
+  end
+
+  context "GET /login" do
+    it "gets login form" do
+      response = get('/login')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('method="POST"')
+      expect(response.body).to include('action="/login"')
+      expect(response.body).to include('name="email"')
+    end
+  end
+
+  context "POST /login" do
+    xit "logs in" do
+
+    end
+
+    xit "doesn't log in wrong password" do
+    end
+
+    xit "doesn't log in non existant email" do
+    end
+
+    xit "log in user_2 causes user_1 to log out" do
     end
   end
 end
