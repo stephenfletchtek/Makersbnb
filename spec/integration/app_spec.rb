@@ -43,8 +43,7 @@ RSpec.describe Application do
 
   context 'POST /add' do
     it 'returns 200 OK if a completed form is submitted' do
-      response = post('/add', name: 'test_name', description: 'test_description', price_per_night: 'test_price',
-                              availability: 'test_date')
+      response = post('/add', name: 'test_name', description: 'test_description', price_per_night: 23, availability: 'test_date', image_url: 'https://i2-prod.mylondon.news/incoming/article19572361.ece/ALTERNATES/s615/1937_SUR105926_IMG_00_0000jpegjpgBarnard-Marcus.jpg')
       expect(response.status).to eq(302)
       expect(response.body).to eq('')
       confirm = get('/')
