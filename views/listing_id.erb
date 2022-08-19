@@ -78,17 +78,74 @@
       <p class="card-text"><%= @listing['description'] %></p>
       <p class="card-text">£<%= @listing['price_per_night'] %> per night</p>
 
-      <%# Calendar picker stuff here %>
-      <% @calendar_picker.each do |date| %>
-
-      <%# List date from the calendar_picker if it is available in the listings calendar %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Weeks</th>
+      <th scope="col">Monday</th>
+      <th scope="col">Tuesday</th>
+      <th scope="col">Wednesday</th>
+      <th scope="col">Thursday</th>
+      <th scope="col">Friday</th>
+      <th scope="col">Saturday</th>
+      <th scope="col">Sunday</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th scope="row">1</th>
+    <% @calendar_picker[0,7].each do |date| %>
       <% if @listing['availability'].available?(date.split("-")[0].to_i, date.split("-")[1].to_i, date.split("-")[2].to_i) == true %>
-        <p class="card-text"><%= date %></p>
-      <% end%>
-
-      <% end %>
-      <%# Original code %>
-      <%# <p class="card-text"><%= @listing['availability']</p> %>
+       <td class="table-success"><%= date %></td>
+     <% else %>
+       <td class="table-danger">Unavailable</td>
+    <% end%>
+  <% end %>
+    </tr>
+    <tr>
+    <th scope="row">2</th>
+    <% @calendar_picker[7,7].each do |date| %>
+      <% if @listing['availability'].available?(date.split("-")[0].to_i, date.split("-")[1].to_i, date.split("-")[2].to_i) == true %>
+       <td class="table-success"><%= date %></td>
+     <% else %>
+       <td class="table-danger">Unavailable</td>
+    <% end%>
+  <% end %>
+    </tr>
+    <tr>
+    <th scope="row">3</th>
+    <% @calendar_picker[14,7].each do |date| %>
+      <% if @listing['availability'].available?(date.split("-")[0].to_i, date.split("-")[1].to_i, date.split("-")[2].to_i) == true %>
+       <td class="table-success"><%= date %></td>
+     <% else %>
+       <td class="table-danger">Unavailable</td>
+    <% end%>
+  <% end %>
+    </tr>
+    <tr>
+    <th scope="row">4</th>
+    <% @calendar_picker[21,7].each do |date| %>
+      <% if @listing['availability'].available?(date.split("-")[0].to_i, date.split("-")[1].to_i, date.split("-")[2].to_i) == true %>
+       <td class="table-success"><%= date %></td>
+     <% else %>
+       <td class="table-danger">Unavailable</td>
+    <% end%>
+  <% end %>
+    </tr>
+    <tr>
+    <th scope="row">5</th>
+    <% @calendar_picker[28,3].each do |date| %>
+      <% if @listing['availability'].available?(date.split("-")[0].to_i, date.split("-")[1].to_i, date.split("-")[2].to_i) == true %>
+       <td class="table-success"><%= date %></td>
+     <% else %>
+       <td class="table-danger">Unavailable</td>
+    <% end%>
+  <% end %>
+    </tr>
+  
+  </tbody>
+</table>
+      
 
       <a href="/listing/<%=@id%>/book"><button type="submit" class="btn btn-danger">Book now</button></a>
       <a href="/listing/:id/add_dates"><button type="submit" class="btn btn-danger">Update the availability of this location</button></a>
