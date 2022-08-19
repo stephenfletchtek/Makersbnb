@@ -78,8 +78,15 @@
       <p class="card-text"><%= @listing['description'] %></p>
       <p class="card-text">£<%= @listing['price_per_night'] %> per night</p>
 
-      <p class="card-text"><%= @listing['availability'] %></p>
-      
+      <%# Calendar picker stuff here %>
+      <% @calendar_picker.each do |date| %>
+      <% %>
+      <p class="card-text"><%= date %></p>
+
+      <% end %>
+      <%# Original code %>
+      <%# <p class="card-text"><%= @listing['availability']</p> %>
+
       <a href="/listing/<%=@id%>/book"><button type="submit" class="btn btn-danger">Book now</button></a>
       <a href="/listing/:id/add_dates"><button type="submit" class="btn btn-danger">Update the availability of this location</button></a>
       <br>

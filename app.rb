@@ -99,6 +99,23 @@ class Application < Sinatra::Base
     begin
       @id = params[:id]
       @listing = repo.find_by_id(params[:id])
+
+      # A calendar picker thingy would go here instead of
+      # this list that simply shows next week
+
+      # The erb file evaluates @listing['availability'] from the database
+      # against this particular week from the 'calendar picker'
+
+      @calendar_picker = [
+        '2022-08-22',
+        '2022-08-23',
+        '2022-08-24',
+        '2022-08-25',
+        '2022-08-26',
+        '2022-08-27',
+        '2022-08-27',
+      ]
+
       return erb(:listing_id)
     rescue => e
       @error = e
