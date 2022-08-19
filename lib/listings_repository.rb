@@ -10,11 +10,15 @@ class ListingsRepository
   def create(listing)
     sql = 'INSERT INTO listings (name, description, price_per_night, availability, image_url)
       VALUES ($1, $2, $3, $4, $5)'
+
+    cal_obj = listing['availability']
+    cal_text = cal_obj.instance_variable_get(:@cal)
+  
     params = [
       listing['name'],
       listing['description'],
-      listing['price_per_night'],
-      listing['availability'],
+      listing['price_per_night'],   
+      cal_text,
       listing['image_url']
     ]
     DatabaseConnection.exec_params(sql, params)

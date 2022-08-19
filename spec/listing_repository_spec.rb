@@ -55,4 +55,39 @@ describe ListingsRepository do
     expect(cal_obj.available?(2022, 1, 1)).to eq(false)
     expect(cal_obj.available?(2022, 1, 2)).to eq(true)
   end 
+
+  it "creates a new listing" do 
+    year_2022 = '2022-'\
+    '0000000000000000000000000000000-'\
+    '1000000000000000000000000000-'\
+    '0000000000000000000000000000000-'\
+    '000000000000000000000000000000-'\
+    '0000000000000000000000000000000-'\
+    '000000000000000000000000000000-'\
+    '0000000000000000000000000000000-'\
+    '0000000000000000000000000000000-'\
+    '000000000000000000000000000000-'\
+    '0000000000000000000000000000000-'\
+    '000000000000000000000000000000-'\
+    '0000000000000000000000000000000'
+
+    cal = Calendar.new(year_2022)
+
+    repo = ListingsRepository.new
+    listing_from_sinatra = {
+      'name' => 'test_house',
+      'description' => 'fake',
+      'price_per_night' => 10,
+      'availability' => cal,
+      'image_url' => 'https://somefake'   
+    }
+    repo.create(listing_from_sinatra)
+
+    listing = repo.find_by_id(5)
+    cal_obj = listing['availability']
+    expect(listing['name']).to eq('test_house')
+    expect(cal_obj.available?(2022, 2, 1)).to eq(false)
+    expect(cal_obj.available?(2022, 2, 2)).to eq(true)
+  end 
+
 end
