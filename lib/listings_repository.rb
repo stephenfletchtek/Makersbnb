@@ -32,6 +32,8 @@ class ListingsRepository
     # turn long list of dates retrieved from database into Calendar object
     output = result[0]
     cal = Calendar.new(output['availability'])
+    cal.book(2022,8,22)
+    cal.book(2022,8,23)
     output['availability'] = cal
     output
   end

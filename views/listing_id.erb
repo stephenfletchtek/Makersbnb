@@ -87,6 +87,33 @@
       <% end%>
 
       <% end %>
+      <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">This Month</th>
+      <th scope="col">Monday</th>
+      <th scope="col">Tuesday</th>
+      <th scope="col">Wednesday</th>
+      <th scope="col">Thursday</th>
+      <th scope="col">Friday</th>
+      <th scope="col">Saturday</th>
+      <th scope="col">Sunday</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th scope="row">1</th>
+    <% @calendar_picker.each do |date| %>
+      <% if @listing['availability'].available?(date.split("-")[0].to_i, date.split("-")[1].to_i, date.split("-")[2].to_i) == true %>
+       <td class="table-success"><%= date %></td>
+     <% else %>
+       <td class="table-danger">Unavailable</td>
+    <% end%>
+  <% end %>
+    </tr>
+  
+  </tbody>
+</table>
       <%# Original code %>
       <%# <p class="card-text"><%= @listing['availability']</p> %>
 
