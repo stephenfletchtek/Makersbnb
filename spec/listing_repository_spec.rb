@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'listings_repository'
+require 'calendar'
 
 def reset_listings_table
   seed_sql = File.read('spec/schemas+seeds/seeds_all.sql')
@@ -22,17 +23,36 @@ describe ListingsRepository do
     expect(listings.first['price_per_night']).to eq('35')
   end
 
+  # [happens in app] user makes booking, booking data retrieved from form, form data converted 
+  # to calendar object 
+  # [happens in repo class] get calendar object, turn back into string, post to database 
   it "updates a listing" do 
+
+    year_2022 = '2022-'\
+        '1000000000000000000000000000000-'\
+        '0000000000000000000000000000-'\
+        '0000000000000000000000000000000-'\
+        '000000000000000000000000000000-'\
+        '0000000000000000000000000000000-'\
+        '000000000000000000000000000000-'\
+        '0000000000000000000000000000000-'\
+        '0000000000000000000000000000000-'\
+        '000000000000000000000000000000-'\
+        '0000000000000000000000000000000-'\
+        '000000000000000000000000000000-'\
+        '0000000000000000000000000000000'
+
+    cal = Calendar.new(year_2022)
+   
     repo = ListingsRepository.new
+    listing = repo.find_by_id(1)
+    listing['availability'] = cal
+    
+    repo.update(listing)
 
     listing = repo.find_by_id(1)
-    listing['availability'] = 'available'
-    repo.update(listing)
-    result_listing = repo.find_by_id(1)
-
-    # this test needs to be redeveloped 
-    expect(result_listing['name']).to eq('Buckingham Palace')
-    cal = result_listing['availability']
-    expect {cal.available?(2022, 1, 1) }.to raise_error("Date year [2022] does not match calendar year [0]")
+    cal_obj = listing['availability']
+    expect(cal_obj.available?(2022, 1, 1)).to eq(false)
+    expect(cal_obj.available?(2022, 1, 2)).to eq(true)
   end 
 end
