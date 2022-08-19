@@ -1,4 +1,5 @@
-# GET '/login' Route Design Recipe
+# Bookings Routes Design Recipe
+
 ## 1. Design the Route Signature
 
 # GET '/login'

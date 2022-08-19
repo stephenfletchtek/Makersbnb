@@ -5,6 +5,8 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require './lib/listings_repository'
 require './lib/user_repository'
+require './lib/booking_repository'
+
 
 DatabaseConnection.connect('makersbnb_test')
 
@@ -69,9 +71,33 @@ class Application < Sinatra::Base
     redirect("/listing/#{params[:id]}")
   end 
 
+  get '/listing/:id/book' do
+    return erb(:not_logged_in) unless session[:user_email]
+    @id = params[:id]
+    @listing = ListingsRepository.new.find_by_id(params[:id])
+    return erb(:book_date)
+  end
+
+  post '/listing/:id/book' do
+    return erb(:not_logged_in) unless session[:user_email]
+    booking_repo = BookingRepository.new
+    user_repo = UserRepository.new
+    listing_id = params[:id]
+    user_id = user_repo.find_by_email(session[:user_email])['id']
+    booking = {
+      'listing_id' => listing_id,
+      'user_id' => user_id,
+      'date_booked' => params[:availability],
+      'status' => 'pending'
+    }
+    booking_repo.create(booking)
+    redirect('/bookings')
+  end
+
   get '/listing/:id' do
     repo = ListingsRepository.new
     begin
+      @id = params[:id]
       @listing = repo.find_by_id(params[:id])
       return erb(:listing_id)
     rescue => e
@@ -80,7 +106,25 @@ class Application < Sinatra::Base
     end
   end
 
-  get '/bookings' do 
+  get '/bookings' do
+    lrepo = ListingsRepository.new
+    urepo = UserRepository.new
+
+    #  get an @array of all the bookings for erb
+    #  add display values to each booking hash 
+
+    bookings = BookingRepository.new.all
+
+    @display_bookings = bookings.map do |booking|
+      {
+        name: lrepo.find_by_id(booking['listing_id'])['name'],
+        email: urepo.find_by_id(booking['user_id'])['email'],
+        date: booking['date_booked'],
+        status: booking['status'],
+        image_url: lrepo.find_by_id(booking['listing_id'])['image_url']
+      }
+    end
+
     return erb(:bookings)
   end
 

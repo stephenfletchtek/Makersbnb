@@ -103,16 +103,16 @@
 
     <section class="d-flex justify-content-center">
       <div class="card col-md-2 mx-4" style="width: 18rem">
-        <img src=<%="#{listing_hash[:image_url]}"%> class="card-img-top" alt="..." />
+        <img src=<%="#{listing_hash['image_url']}"%> class="card-img-top" alt="..." />
         <div class="card-body">
-          <h5 class="card-title"><%= listing_hash[:name] %></h5>
+          <h5 class="card-title"><%= listing_hash['name'] %></h5>
           <p class="card-text">
-            Price: £<%= listing_hash[:price_per_night] %>
+            Price: £<%= listing_hash['price_per_night'] %>
           </p>
            <p class="card-text">
-           <%= listing_hash[:description] %>
+           <%= listing_hash['description'] %>
           </p>
-          <a href="/listing/<%= listing_hash[:id]%>" class="btn btn-outline-danger">View Listing</a>
+          <a href="/listing/<%= listing_hash['id']%>" class="btn btn-outline-danger">View Listing</a>
         </div>
       </div>
 
