@@ -80,8 +80,11 @@
 
       <%# Calendar picker stuff here %>
       <% @calendar_picker.each do |date| %>
-      <% %>
-      <p class="card-text"><%= date %></p>
+
+      <%# List date from the calendar_picker if it is available in the listings calendar %>
+      <% if @listing['availability'].available?(date.split("-")[0].to_i, date.split("-")[1].to_i, date.split("-")[2].to_i) == true %>
+        <p class="card-text"><%= date %></p>
+      <% end%>
 
       <% end %>
       <%# Original code %>

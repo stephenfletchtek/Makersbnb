@@ -7,7 +7,6 @@ require './lib/listings_repository'
 require './lib/user_repository'
 require './lib/booking_repository'
 
-
 DatabaseConnection.connect('makersbnb_test')
 
 # MakersBnb web app
@@ -113,7 +112,7 @@ class Application < Sinatra::Base
         '2022-08-25',
         '2022-08-26',
         '2022-08-27',
-        '2022-08-27',
+        '2022-08-28',
       ]
 
       return erb(:listing_id)

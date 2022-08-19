@@ -1,4 +1,4 @@
-require 'calendar'
+require './lib/calendar'
 
 # BnB listings repository class
 class ListingsRepository
@@ -26,9 +26,13 @@ class ListingsRepository
     raise 'record not found' if result.ntuples.zero?
 
     # turn long list of dates retrieved from database into Calendar object
-    result[0]['availability'] = Calendar.new(result[0]['availability'])
+    output = result[0]
+    cal = Calendar.new(output['availability'])
+   
+    cal.book(2022, 8, 22)
 
-    result[0]
+    output['availability'] = cal
+    output
   end
 
   def update(listing)
