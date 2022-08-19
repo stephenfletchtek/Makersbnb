@@ -82,6 +82,11 @@ class Application < Sinatra::Base
     redirect('/')
   end
 
+  get "/logout" do
+    session.clear
+    redirect("/")
+  end 
+
   get '/listing/:id/add_dates' do
     @id = params[:id]
     return erb(:add_date)
@@ -191,7 +196,17 @@ class Application < Sinatra::Base
       }
     end
 
+    if session['user_email'].nil?
+      return erb(:bookings)
+    else
+     user_bookings = []
+    @display_bookings = @display_bookings.map{|booking|
+      if booking[:email] == session['user_email']
+          user_bookings << booking
+      end}
+    @display_bookings = user_bookings
     return erb(:bookings)
+    end 
   end
 
   private

@@ -56,7 +56,14 @@
           <ul class="navbar-nav">
             <% if @user %>
               <li class="nav-item ms-2 d-none d-md-inline">
-                <p>Logged in as<%= @user%></p>
+                <a class="nav-link" href="/logout"><%= @user %> </a>
+              </li>
+              <li class="nav-item ms-2 d-none d-md-inline">
+                <a class="nav-link" href="/bookings">Bookings</a>
+              </li>
+              <li class="nav-item ms-2 d-none d-md-inline">
+                <a class="nav-link link-danger" href="/logout">Logout</a>
+              </li>
             <% else %>
               <li class="nav-item ms-2 d-none d-md-inline">
                 <a class="nav-link" href="#">Sign Up</a>
