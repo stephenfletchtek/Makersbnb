@@ -7,7 +7,11 @@ require './lib/listings_repository'
 require './lib/user_repository'
 require './lib/booking_repository'
 
-DatabaseConnection.connect('makersbnb_test')
+if ENV['ENV'] == 'test'
+  DatabaseConnection.connect('makersbnb_test')
+else
+  DatabaseConnection.connect('makersbnb')
+end
 
 # MakersBnb web app
 class Application < Sinatra::Base
