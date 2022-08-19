@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+require './lib/calendar'
 
 # BnB listings repository class
 class ListingsRepository
@@ -24,7 +24,12 @@ class ListingsRepository
     sql = 'SELECT * FROM listings WHERE id = $1;'
     result = DatabaseConnection.exec_params(sql, [id])
     raise 'record not found' if result.ntuples.zero?
-    result[0]
+
+    # turn long list of dates retrieved from database into Calendar object
+    output = result[0]
+    cal = Calendar.new(output['availability'])
+    output['availability'] = cal
+    output
   end
 
   def update(listing)

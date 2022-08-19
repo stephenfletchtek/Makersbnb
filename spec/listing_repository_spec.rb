@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require 'listings_repository'
 
 def reset_listings_table
@@ -34,11 +33,4 @@ describe ListingsRepository do
     expect(result_listing['name']).to eq('Buckingham Palace')
     expect(result_listing['availability']).to eq('available')
   end 
-
-  it "check extra smurfcal seeds file loads" do
-    repo = ListingsRepository.new
-    listing = repo.find_by_id(4)
-    dates = listing['availability']
-    expect(dates[0..3]).to eq('2022')
-  end
 end
