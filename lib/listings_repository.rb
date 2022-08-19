@@ -28,12 +28,8 @@ class ListingsRepository
     sql = 'SELECT * FROM listings WHERE id = $1;'
     result = DatabaseConnection.exec_params(sql, [id])
     raise 'record not found' if result.ntuples.zero?
-
-    # turn long list of dates retrieved from database into Calendar object
     output = result[0]
     cal = Calendar.new(output['availability'])
-    cal.book(2022,8,22)
-    cal.book(2022,8,23)
     output['availability'] = cal
     output
   end
