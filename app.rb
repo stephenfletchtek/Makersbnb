@@ -6,6 +6,7 @@ require 'sinatra/reloader'
 require './lib/listings_repository'
 require './lib/user_repository'
 require './lib/booking_repository'
+require './lib/calendar'
 
 if ENV['ENV'] == 'test'
   DatabaseConnection.connect('makersbnb_test')
@@ -33,15 +34,36 @@ class Application < Sinatra::Base
   end
 
   post '/add' do
+
+    blank_2022 = '2022-'\
+    '0000000000000000000000000000000-'\
+    '0000000000000000000000000000-'\
+    '0000000000000000000000000000000-'\
+    '000000000000000000000000000000-'\
+    '0000000000000000000000000000000-'\
+    '000000000000000000000000000000-'\
+    '0000000000000000000000000000000-'\
+    '0000000000000000000000000000000-'\
+    '000000000000000000000000000000-'\
+    '0000000000000000000000000000000-'\
+    '000000000000000000000000000000-'\
+    '0000000000000000000000000000000'
+
+    blank_cal = Calendar.new(blank_2022)
+
     listing = {
-      name: params['name'],
-      description: params['description'],
-      price_per_night: params['price_per_night'],
-      availability: params['availability'],
-      image_url: params['image_url']
+      'name' => params['name'],
+      'description' => params['description'],
+      'price_per_night' => params['price_per_night'],
+      'image_url' => params['image_url']
     } 
-    listing[:availability] = 'false' if listing[:availability] == nil
+
     return erb(:add_form_error) unless listing_valid?(listing)
+
+    listing['availability'] = blank_cal
+
+    # may not be needed if we ditch the toggle
+    listing[:availability] = 'false' if listing[:availability] == nil
 
     repo = ListingsRepository.new
     repo.create(listing)

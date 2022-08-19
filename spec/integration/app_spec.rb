@@ -49,8 +49,11 @@ RSpec.describe Application do
       expect(response.body).to eq('')
       confirm = get('/')
       expect(confirm.status).to eq(200)
-      # expect(confirm.body).to include('test_name')
-      # expect(confirm.body).to include('test_description')
+   
+      expect(confirm.body).to include('test_name')
+      expect(confirm.body).to include('test_description')
+      
+
     end
 
     it "doesn't add if form is incomplete" do
