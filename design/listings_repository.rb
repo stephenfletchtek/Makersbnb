@@ -31,7 +31,6 @@ class ListingsRepository
     output = result[0]
     cal = Calendar.new(output['availability'])
 
-    # temporary bookings
     cal.book(2022, 8, 2)
     cal.book(2022, 8, 3)
     cal.book(2022, 8, 24)
