@@ -185,10 +185,6 @@ class Application < Sinatra::Base
   get '/bookings' do
     lrepo = ListingsRepository.new
     urepo = UserRepository.new
-
-    #  get an @array of all the bookings for erb
-    #  add display values to each booking hash 
-
     bookings = BookingRepository.new.all
 
     @display_bookings = bookings.map do |booking|
@@ -201,17 +197,13 @@ class Application < Sinatra::Base
       }
     end
 
-    if session['user_email'].nil?
-      return erb(:bookings)
-    else
-     user_bookings = []
-    @display_bookings = @display_bookings.map{|booking|
-      if booking[:email] == session['user_email']
-          user_bookings << booking
-      end}
-    @display_bookings = user_bookings
-    return erb(:bookings)
-    end 
+    return erb(:bookings) unless session['user_email']
+   
+    @display_bookings = @display_bookings.select do |booking|
+      booking[:email] == session[:user_email]
+    end
+
+    erb(:bookings)
   end
 
   private

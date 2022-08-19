@@ -180,7 +180,6 @@ RSpec.describe Application do
       expect(response.status).to eq(302)
       expect(response.body).to eq ('')
       expect(BookingRepository.new.all[3]['date_booked']).to eq('2022-12-24')
-      # expand test to check web response
       response2 = get('/bookings')
       expect(response2.body).to include '2022-12-24'
       expect(response2.body).to include 'duck@makers.com'

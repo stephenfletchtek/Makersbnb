@@ -29,15 +29,7 @@ class ListingsRepository
     result = DatabaseConnection.exec_params(sql, [id])
     raise 'record not found' if result.ntuples.zero?
     output = result[0]
-    cal = Calendar.new(output['availability'])
-
-    # temporary bookings
-    # cal.book(2022, 8, 2)
-    # cal.book(2022, 8, 3)
-    # cal.book(2022, 8, 24)
-    # cal.book(2022, 8, 27)
-    # cal.book(2022, 8, 28)
-    
+    cal = Calendar.new(output['availability'])  
     output['availability'] = cal
     output
   end
