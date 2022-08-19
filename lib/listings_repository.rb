@@ -10,11 +10,15 @@ class ListingsRepository
   def create(listing)
     sql = 'INSERT INTO listings (name, description, price_per_night, availability, image_url)
       VALUES ($1, $2, $3, $4, $5)'
+
+    cal_obj = listing['availability']
+    cal_text = cal_obj.instance_variable_get(:@cal)
+  
     params = [
       listing['name'],
       listing['description'],
-      listing['price_per_night'],
-      listing['availability'],
+      listing['price_per_night'],   
+      cal_text,
       listing['image_url']
     ]
     DatabaseConnection.exec_params(sql, params)
@@ -28,6 +32,8 @@ class ListingsRepository
     # turn long list of dates retrieved from database into Calendar object
     output = result[0]
     cal = Calendar.new(output['availability'])
+    cal.book(2022,8,22)
+    cal.book(2022,8,23)
     output['availability'] = cal
     output
   end
@@ -35,11 +41,14 @@ class ListingsRepository
   def update(listing)
     sql = 'UPDATE listings SET name = $1, description = $2, price_per_night = $3, availability = $4, image_url = $5 WHERE id = $6;'
 
+    cal_obj = listing['availability']
+    cal_text = cal_obj.instance_variable_get(:@cal)
+
     params = [
       listing['name'],
       listing['description'],
       listing['price_per_night'],
-      listing['availability'],
+      cal_text,
       listing['image_url'],
       listing['id']
     ]
