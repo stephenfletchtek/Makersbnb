@@ -116,6 +116,11 @@ class Application < Sinatra::Base
       'status' => 'pending'
     }
     booking_repo.create(booking)
+
+    # auto approve
+    # booking['status'] = 'confirmed'
+    # booking_repo.update(booking)
+    
     redirect('/bookings')
   end
 

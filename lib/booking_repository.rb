@@ -17,6 +17,18 @@ class BookingRepository
     DatabaseConnection.exec_params(sql, params)
   end
 
-
-
+  # not tested - match on 3 parameters
+  def update(booking)
+    sql = 'UPDATE bookings SET status = "confirmed"
+      WHERE listing_id = $1 
+      AND user_id = $2
+      AND date_booked = $3;'
+      
+    params = [
+      booking['listing_id'],
+      booking['user_id'],
+      booking['date_booked']
+    ]
+    DatabaseConnection.exec_params(sql, params)
+  end
 end

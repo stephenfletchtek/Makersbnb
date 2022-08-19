@@ -24,4 +24,19 @@ describe BookingRepository do
     expect(results[1]['status']).to eq('confirmed')
     expect(results[2]['status']).to eq('denied')
   end
+
+  # need to write this!
+  xit "updates a booking" do 
+    repo = BookingRepository.new
+    results = repo.all
+    expect(results.ntuples).to eq 3
+
+    expect(results[0]['listing_id']).to eq('1')
+    expect(results[0]['user_id']).to eq('1')
+    expect(results[0]['date_booked']).to eq('2022-12-25')
+    expect(results[0]['status']).to eq('pending')
+    expect(results[1]['status']).to eq('confirmed')
+    expect(results[2]['status']).to eq('denied')
+  en
+  end
 end
