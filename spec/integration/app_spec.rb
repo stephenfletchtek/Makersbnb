@@ -62,10 +62,10 @@ RSpec.describe Application do
 
   context 'GET /listing/:id' do
     it 'returns 200 OK when a listing is found' do
-      response = get('/listing/1')
+      response = get('/listing/4')
 
       expect(response.status).to eq(200)
-      # expect(response.body).to include('<h5 class="card-title">Buckingham Palace</h5>')
+      expect(response.body).to include('<h5 class="card-title">Portaloo</h5>')
       expect(response.body).to include('<a class="nav-link" href="#">Log In</a>')
     end
 
