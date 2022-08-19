@@ -2,30 +2,35 @@
 
 ## 1. Design and create the Table
 
-```sql
--- (file: design/tables.sql)
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  email text UNIQUE,
-  password text
-);
-```
+Already done
 
 ## 2. Create Test SQL seeds
 
 ```sql
--- (file: spec/seeds_users.sql)
+-- (file: spec/seeds_all.sql)
 
-TRUNCATE TABLE users RESTART IDENTITY;
+TRUNCATE TABLE users, bookings RESTART IDENTITY;
 
-INSERT INTO users (email, password) VALUES ('duck@makers.com', 'quack!');
-INSERT INTO users (email, password)
-  VALUES ('duck2@makers.com', '$2a$12$qmO3XbZHMXhymqZBstr48O0rW8ubyqAITgm9T.cIoQrk0CMEEfECm');
-INSERT INTO users (email, password)
-  VALUES ('homer@simpsons.com', '$2a$12$GKyE/JG3VsUfVeaPzfoNu.4U2DLkXo9uPbq1/K2MohAgAC2Qw4sTm'); 
-git 
+INSERT INTO bookings (listing_id, user_id, date_booked, status)
+  VALUES ('1', '1', '2022-12-25', 'pending')
+
+INSERT INTO bookings (listing_id, user_id, date_booked, status)
+  VALUES ('2', '3', '2022-07-30', 'confirmed')
+
+INSERT INTO bookings (listing_id, user_id, date_booked, status)
+  VALUES ('1', '2', '2022-02-14', 'denied')
+
 ```
 note that original password for homer is springfield1
+
+
+```sql
+INSERT INTO listings (name, description, price_per_night, availability, image_url)VALUES
+('Buckingham Palace', 'its alright', 35, '9-Oct-2022', 'https://drive.google.com/uc?export=view&id=1Zfoy6o9qAd-Tsqo66LkH2BhtX9-BE2L0'),
+('Fawlty Towers', 'A very wonky place to stay', 40, '09-Sept-2022', 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/Fawlty_Towers_title_card.jpg/250px-Fawlty_Towers_title_card.jpg' ),
+('Mayfair Place', 'An expensive 5 bedroom home', 100, '14-Sept-2022',' https://hubble.imgix.net/listings/uploads/spaces/1032/2015-08-20_16%2B46%2B01%2B407082_Mayfair%20Building%2050size%20.jpg' );
+
+```
 
 
 ```bash
@@ -41,55 +46,36 @@ psql -h 127.0.0.1 makersbnb_test < spec/seeds_users.sql
 
 # Repository class
 # (in lib/user_repo.rb)
-class UserRepository
+class BookingRepository
 
-def find(email)
+def all
 end
-
-def sign_in(email, password)
-end
-
 
 ```
 
 ## 4. Implement the Model class
 
-It would be this:
-```ruby
-class User
-  attr_accessor :id, :email, :password
-end
 ```
-But this is considered bad practice. We will receive user data as a hash directly into the UserRepository
+This is considered bad practice. We will receive user data as a hash directly into the BookingRepository
+```
 
 ## 5. Define the Repository Class interface
 
 ```ruby
-# Table name: users
+# Table name: bookings
 
 # Repository class
-# (in lib/user_repo.rb)
+# (in lib/booking_repo.rb)
 
-class UserRepository
+class BookingRepository
 
-  def sign_in(email, submitted_password)
-    user = find_by_email(email)
-
-    return nil if user.nil?
-    
-    my_password = BCrypt::Password.new(user['password'])
-
-    if my_password == submitted_password
-      # login success
-    else
-      # wrong password
-    end
+  def all
+    sql 'SELECT * FROM bookings;'
+    results = DatabaseConnection.exec_params(sql, [])
   end
 
-  def find_by_email(email)
-    # sql = 'SELECT * FROM users WHERE email = $1;'
-  end
 end
+
 ```
 
 ## 6. Test Examples
