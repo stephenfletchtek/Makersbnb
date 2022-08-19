@@ -114,18 +114,15 @@ class Application < Sinatra::Base
     user_repo = UserRepository.new
     listing_id = params[:id]
     user_id = user_repo.find_by_email(session[:user_email])['id']
+    
     booking = {
       'listing_id' => listing_id,
       'user_id' => user_id,
       'date_booked' => params[:availability],
       'status' => 'pending'
     }
-    booking_repo.create(booking)
 
-    # auto approve
-    # booking['status'] = 'confirmed'
-    # booking_repo.update(booking)
-    
+    booking_repo.create(booking)
     redirect('/bookings')
   end
 
@@ -136,7 +133,7 @@ class Application < Sinatra::Base
       @listing = repo.find_by_id(params[:id])
 
       # A calendar picker thingy would go here instead of
-      # this list that simply shows next week
+      # this list that simply shows this month
 
       # The erb file evaluates @listing['availability'] from the database
       # against this particular week from the 'calendar picker'
