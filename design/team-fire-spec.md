@@ -1,9 +1,8 @@
-<aside>
-🔥 Project specification
+# 🔥 Project specification
 
 We would like a web application that allows users to list spaces they have available, and to hire spaces for the night.
 
-### Headline specifications
+## Headline specifications
 
 - Any signed-up user can list a new space.
     - Seed with a list of users (2 or 3)
@@ -24,7 +23,7 @@ We would like a web application that allows users to list spaces they have avail
 - Until a user has confirmed a booking request, that space can still be booked for that night.
     - space is only removed from available once confirmed
 
-### Nice-to-haves
+## Nice-to-haves
 
 - Users should receive an email whenever one of the following happens:
 - They sign up
@@ -41,4 +40,3 @@ We would like a web application that allows users to list spaces they have avail
 - Their request to book a space is denied
 - A ‘chat’ functionality once a space has been booked, allowing users whose space-booking request has been confirmed to chat with the user that owns that space
 - Basic payment implementation though Stripe.
-</aside>
