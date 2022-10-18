@@ -1,8 +1,12 @@
 # MakersBnB
 
-Our team challenge was to develop a Ruby / Sinatra based BnB application over the period of 1 week. Code was tested using RSpec
+## Team Fire 🔥
 
-We used notion to capture the project specification and create user stories.
+Our team challenge was to develop a BnB application over the period of 1 week starting with a Ruby / Sinatra framework.
+
+We used notion to capture the [project specification](design/team-fire-spec.md) and create [user stories](design/user-stories.md). We developed the application using agile methodology and used Trello for our tickets.
+
+!['Image of our Trello board'](design/team-fire-trello.png "Team fire Trello Board")
 
 ## Get Started
 
@@ -45,3 +49,12 @@ User Rspec to run unit tests and integration tests as used during development.
 # Run the tests
 rspec
 ```
+
+## Tech
+
+* Ruby
+* Sinatra
+* PostgreSQL
+* BCrypt
+* Rack
+* Rspec
