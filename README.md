@@ -57,4 +57,4 @@ rspec
 * PostgreSQL
 * BCrypt
 * Rack
-* Rspec
+* RSpec
