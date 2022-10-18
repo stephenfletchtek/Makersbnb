@@ -43,7 +43,7 @@ Now go to **http://localhost:9292/** in your web browser
 
 ### Testing
 
-User RSpec to run unit tests and integration tests as used during development.
+Use RSpec to run unit tests and integration tests as used during development.
 
 ```bash
 # Run the tests
