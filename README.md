@@ -1,9 +1,8 @@
 # MakersBnB
 
-Our team challenge was to develop a Ruby / Sinatra based BnB application over the period of 1 week.
+Our team challenge was to develop a Ruby / Sinatra based BnB application over the period of 1 week. Code was tested using RSpec
 
-
-This repo contains the seed codebase for the MakersBnB project in Ruby (using Sinatra and RSpec).
+We used notion to capture the project specification and create user stories.
 
 ## Get Started
 
@@ -29,7 +28,7 @@ $ brew services start postgresql
 
 ### Run
 
-This application rack as its server.
+This application uses rack as its server.
 
 ```bash
 # Run the server (better to do this in a separate terminal).
